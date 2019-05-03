@@ -11,6 +11,7 @@
 	<groupId>com.example.hola-mundo</groupId>
 	<artifactId>Hola-Mundo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>Hola-Mundo</name>
 	<description>Pruebas de Spring - Hola Mundo</description>
 
@@ -28,6 +29,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
