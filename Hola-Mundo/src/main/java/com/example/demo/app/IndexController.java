@@ -15,6 +15,6 @@ public class IndexController {
 		@GetMapping("/index") //RequestMapping para GET y POST
 		public String index(Model model) {
 			model.addAttribute("titulo","Hola mundo");
-			return "vista";
+			return "index";
 		}
 }
