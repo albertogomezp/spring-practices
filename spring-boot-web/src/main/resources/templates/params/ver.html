@@ -6,16 +6,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <meta charset="UTF-8"/>
-<title th:text="${titulo}"></title>
+<title th:text="${resultado}"></title>
 </head>
 <body>
 <div class="jumbotron text-center">
-  <h1 class="display-4 text-center">Hola, esto es Spring... uwu</h1>
+  <h1 th:text="${resultado}"></h1>
   <a href="/app/perfil" class="btn btn-primary btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">Perfil</a>
   <a href="/app/listar" class="btn btn-secondary btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">Listar</a>
-    <a href="params/string?text=hola" text="hola"  class="btn btn-warning btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">ver</a>
-     <a href="params/"  class="btn btn-warning btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">Params</a>
-  
 </div>
 
 </body>

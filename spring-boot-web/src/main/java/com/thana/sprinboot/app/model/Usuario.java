@@ -8,6 +8,13 @@ public class Usuario {
 	public Usuario() {
 		super();
 	}
+	public Usuario(String nombre, String apellido, String email) {
+		super();
+		this.email = email;
+		this.apellido = apellido;
+		this.nombre = nombre;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

@@ -10,15 +10,31 @@
 <title th:text="${titulo}"></title>
 </head>
 <body class="text-center">
-<div th:if="${usuarios.size()==0}">
-<div class="alert alert-danger" role="alert">
- No hay usuarios registrados en el sistema
-</div>
-  <a href="/" class="btn btn-secondary btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">home</a>
-  <a href="/app/perfil" class="btn btn-primary btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">Perfil</a>
-
-
-</div>
+	<div th:if="${usuarios.isEmpty()}">
+		<div class="alert alert-danger" role="alert">
+		 	No hay usuarios registrados en el sistema
+		</div>
+	</div>
+	<div th:if="${!usuarios.isEmpty()}">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Email</th><br>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="usuario: ${usuarios}">
+				<td th:text="${usuario.getNombre()}"></td>
+				<td th:text="${usuario.getApellido()}"></td>
+				<td th:text="${usuario.getEmail()}"></td><br>
+			</tr>
+		</tbody>
+	</div>
+	
+	<a href="/" class="btn btn-secondary btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">home</a>
+	<a href="/app/perfil" class="btn btn-primary btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">Perfil</a>
+	
 
 </body>
 </html>
