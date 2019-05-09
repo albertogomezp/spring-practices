@@ -1,3 +1,4 @@
+	alert("holita");
 function getResponse(msg,username){
 	if(typeof msg !== 'undefined'){
 		
@@ -14,6 +15,10 @@ function getResponseNoUser(msg){
 	if(typeof msg !== 'undefined'){
 		alert(msg);
 	}
+	
+};
+function wro(){
+	alert("holita");
 	
 };
 function callJqueryAjax(action){
@@ -49,7 +54,7 @@ function callJqueryAjax(action){
 	  //var action = "test";
 	  $.ajax(
 	    {
-	      url     : '/IvAl/Core',
+	      url     : '/core',
 	      method     : 'POST',
 	      data     : {action: "test"},
 	      success    : function(resultText){ $('#resultServlet').html(resultText); console.log("ok")},

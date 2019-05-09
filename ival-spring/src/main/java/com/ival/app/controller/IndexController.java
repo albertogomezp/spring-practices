@@ -31,6 +31,7 @@ public class IndexController {
 	}
 	@RequestMapping({"/login","iniciosesion","loginform"})
 	public String login(Model model) {
+		System.out.println("consola");
 	//	return "forward:/app/login";
 		return "login";
 	}

@@ -10,12 +10,31 @@
 <meta charset="UTF-8"/>
 <title th:text="${titulo}"></title>
 </head>
-<body>
-<div class="jumbotron text-center">
-  <h1 class="color-rojo display-4 text-center" th:text="${objeto}"></h1>
-	     <a href="factura/ver"  class="btn btn-warning btn-lg align-center" tabindex="-1" role="button" aria-disabled="true">Factura</a>
+<body class="text-center">
+	<div class="jumbotron text-center">
+	  <h1 class="color-rojo display-4 text-center" th:text="${titulo}"></h1>
+	</div>
+	<h3 th:utext="${factura.descripcion}"></h3>
+	<div>Cliente: <span th:utext="${factura.cliente.nombre + ' ' + factura.cliente.apellido}"></span></div>
+	<h4>Detalle de la factura</h4>
+	<table class="container-fluid table-striped mt-3">
+		<thead>
+			<tr>
+				<th>Producto</th>
+				<th>Precio</th>
+				<th>Cantidad</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item: ${factura.items}">
+				<th th:text="${item.producto.nombre}"></th>
+				<th th:text="${item.producto.precio}"></th>
+				<th th:text="${item.cantidad}"></th>
+				<th th:text="${item.calcularImporte()}"></th>
+			</tr>
+		</tbody>
+	</table>
 	
-</div>
-
 </body>
 </html>

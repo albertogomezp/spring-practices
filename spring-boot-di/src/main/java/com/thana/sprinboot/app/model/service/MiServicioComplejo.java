@@ -3,7 +3,7 @@ package com.thana.sprinboot.app.model.service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-@Component("miServicioComplejo")
+//@Component("miServicioComplejo")
 
 public class MiServicioComplejo implements Iservicio {
 

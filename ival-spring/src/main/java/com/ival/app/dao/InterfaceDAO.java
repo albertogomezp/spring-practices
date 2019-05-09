@@ -74,7 +74,7 @@ public interface InterfaceDAO {
 
 	void updateUser(SecureLogin entity);
 
-	void signin(SecureLogin entity);
+	boolean signin(SecureLogin entity);
 
 	List<SecureLogin> findAllUsers();
 

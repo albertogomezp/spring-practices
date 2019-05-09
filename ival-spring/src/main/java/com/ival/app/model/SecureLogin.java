@@ -17,7 +17,7 @@ public class SecureLogin {
 	@Column(name = "user")
 	private String user = "default";
 	@Column(name="password")
-	private String password;
+	private String password ="default";
 	@Column(name="condimento")
 	private String condimento;
 	public SecureLogin() {
@@ -56,7 +56,7 @@ public class SecureLogin {
 	}
 	@Override
 	public String toString() {
-		return "SecureLogin [user=" + user + ", password=" + password + ", condimento=" + condimento + "]";
+		return "SecureLogin [user=" + user + ", password=" + password + ", condimento= '" + condimento + "']";
 	}
 	
 	

@@ -13,7 +13,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 /*
  * @author: Alberto Gomez
- * @author: Ivan Perez
  */
 
 public class IvalDAO implements InterfaceDAO {
@@ -49,7 +48,7 @@ public class IvalDAO implements InterfaceDAO {
 	private static SessionFactory getSessionFactory() {
 		Configuration configuration = new Configuration()
 			 .configure()
-			 .addPackage("com.testing.model")
+			 .addPackage("com.ival.app.model")
 			 .addAnnotatedClass(SecureLogin.class)
 			 .addAnnotatedClass(Carrito.class)
 			 .addAnnotatedClass(Producto.class);
@@ -165,10 +164,20 @@ public class IvalDAO implements InterfaceDAO {
 		 * @see com.testing.dao.ivalDAO#signin(com.testing.model.SecureLogin)
 		 */
 		@Override
-		public void signin(SecureLogin entity) {
+		public boolean signin(SecureLogin entity) {
+			boolean check = true;
+			try {
 			currentSession.beginTransaction();
-			currentSession.save(entity);
+			System.out.println(entity.toString());
+			currentSession.persist(entity);
 			currentSession.getTransaction().commit();
+		}
+		catch (RuntimeException e) {
+			currentSession.getTransaction().rollback();
+			check = false;
+		    
+		}
+			return check;
 		}
 
 		/* (non-Javadoc)
@@ -189,19 +198,19 @@ public class IvalDAO implements InterfaceDAO {
 		public SecureLogin login(String username) {
 			currentSession.beginTransaction();
 			
-			Object entity;
+			SecureLogin entity;
 			try {
-				entity = currentSession.get(SecureLogin.class, username);
+				entity = (SecureLogin) currentSession.get(SecureLogin.class, username);
 				System.out.println(entity.toString());
 			} catch (NullPointerException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				entity = new SecureLogin();
 			}
 			System.out.println("--> Peta aqui (?)");
 			//SecureLogin entity = (SecureLogin) getCurrentSession().get(SecureLogin.class,(username));
 		
 			//currentSession.close();
-			return (SecureLogin) entity;
+			return  entity;
 		}
 
 		/* (non-Javadoc)

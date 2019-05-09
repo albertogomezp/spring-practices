@@ -30,7 +30,7 @@ public class EjemploVariablesRutaController {
 	public String variables(@PathVariable String texto, @PathVariable Integer numero, Model model) {
 		
 		model.addAttribute("titulo","Recibir parametros de la ruta (@PathVariable)");
-		model.addAttribute("resultado","El texto enviado en la ruta es: "+texto +" y el numero es "+numero);
+		model.addAttribute("resultado","El texto enviado en la ruta es: "+texto +" y el numero(?) es "+numero);
 		return "variable/ver";
 	}
 }

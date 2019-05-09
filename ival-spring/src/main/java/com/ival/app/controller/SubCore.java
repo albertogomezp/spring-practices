@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ival.app.dao.IvalDAO;
 import com.ival.app.model.Producto;
@@ -70,8 +71,15 @@ public class SubCore extends HttpServlet {
 			dispatcher1.forward(request, response);
 		}
 		
+		@RequestMapping(value = "/sendDati")
+	    public String getDataFromForum(@RequestParam String username){
+	        System.out.println(username); //execute code here
+	        return "/";
+	    }
+		
+		
 		@SuppressWarnings("unused")
-		private static void login(HttpServletRequest request, HttpServletResponse response)
+		static void login(HttpServletRequest request, HttpServletResponse response)
 				throws SQLException, ServletException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
 			
 			//--> Create login object 
@@ -111,20 +119,20 @@ public class SubCore extends HttpServlet {
 			if(canLog) {
 				System.out.println("go index");
 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp"); // ??? 
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/index"); // ??? 
 				request.setAttribute("msg", "Successfully loged in");
 				request.setAttribute("username", username);
 				dispatcher.forward(request, response);
 			}
 			else {
 				System.out.println("go back");
-				RequestDispatcher dispatcher =  request.getRequestDispatcher("/vista/login.jsp");;
+				RequestDispatcher dispatcher =  request.getRequestDispatcher("/app/login");;
 				request.setAttribute("msg", "Error in login");
 				dispatcher.forward(request, response);
 			}
 		}
 		
-		private static void signin(HttpServletRequest request, HttpServletResponse response)
+		static void signin(HttpServletRequest request, HttpServletResponse response)
 				throws SQLException, ServletException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
 			System.out.println("dentro signin");
 			
@@ -135,35 +143,44 @@ public class SubCore extends HttpServlet {
 			String password = Passwords.generateStorngPasswordHash(pass, salt);
 			
 			//--> Perpara el dispatcher
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/app/login");
 			//--> Hibernate
 			boolean existe = false;
 			ivalDAO.openCurrentSession();
 			
 			try {
 				SecureLogin almacenado = ivalDAO.login(username);
-				existe = true;
+				if(!almacenado.getUser().equals("default") && !almacenado.getPassword().equals("default")){
+					existe = true;
+				}
+			
 			}
 			catch(NullPointerException e){
 				existe = false;
+			}finally {
+				if(existe) {
+					request.setAttribute("username", "n/a");
+					request.setAttribute("msg", "User already exists");
+				}
+				else {
+					System.out.println("dentro sesion");
+					SecureLogin sign = new SecureLogin(username,password,salt);
+					System.out.println(sign.toString());
+					boolean insert = ivalDAO.signin(sign);
+					if(insert) {
+						System.out.println(insert);
+						request.setAttribute("username", username);
+					}
+					System.out.println(insert);
+					System.out.println("Tras insertar");
+					
+				}
+				ivalDAO.closeCurrentSession();
+				//--> Devuelve conexion
+				System.out.println("fin sesion");
+				dispatcher.forward(request, response);	
 			}
-			
-			if(existe) {
-				request.setAttribute("username", "n/a");
-				request.setAttribute("msg", "User already exists");
-			}
-			else {
-				System.out.println("dentro sesion");
-				SecureLogin sign = new SecureLogin(username,password,salt);
-				System.out.println(sign.toString());
-				ivalDAO.signin(sign);
-				System.out.println("Tras insertar");
-				request.setAttribute("username", username);
-			}
-			ivalDAO.closeCurrentSession();
-			//--> Devuelve conexion
-			System.out.println("fin sesion");
-			dispatcher.forward(request, response);			
+		
 		}
 		
 	 private static void test(HttpServletRequest request, HttpServletResponse response)
