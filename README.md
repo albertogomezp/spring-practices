@@ -1,2 +1,2 @@
 # PracticasSpring
-Prácticas propias de Spring
+Prácticas propias de Spring siguiendo cursos online
