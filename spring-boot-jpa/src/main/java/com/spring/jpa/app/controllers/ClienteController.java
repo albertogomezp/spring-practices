@@ -22,82 +22,91 @@ import com.spring.jpa.app.models.entity.Cliente;
 @Controller
 @SessionAttributes("cliente")
 public class ClienteController {
-		
-		@Autowired //esto encontrará el repo
-		@Qualifier("IClienteDaoJPA") //Para mapear en caso de ambiguedad
-		private IClienteDao clienteDAO;
-		
-		/**
-		 * Lista todos los usuarios (por GET)
-		 * @param model 
-		 * @return Lista de clientes
-		 */
-		@RequestMapping(value = {"listar","","/"}, method = RequestMethod.GET)
-		public String listar(Model model) {
-			model.addAttribute("titulo","Listado de clientes");
-			model.addAttribute("clientes",clienteDAO.findAll());
-			return "listar";
-		}
-		
-		/**
-		 * Crea formulario de registro
-		 * @param model
-		 * @return
-		 */
-		@RequestMapping(value = "/form", method = RequestMethod.GET)
-		public String crear(Map<String, Object> model) {
-			Cliente cliente = new Cliente();
-			model.put("cliente", cliente);
-			model.put("titulo","Formulario de Cliente");
-			model.put("accion", "crear cliente");
-			model.put("whatis","false");
 
+	@Autowired // esto encontrará el repo
+	@Qualifier("IClienteDaoJPA") // Para mapear en caso de ambiguedad
+	private IClienteDao clienteDAO;
 
- 			return "form";
-		}
-		
-		/**
-		 * Guada un usuario
-		 * @param cliente
-		 * @return
-		 */
-		@RequestMapping(value = "/form", method = RequestMethod.POST)
-		public String guardar(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model, SessionStatus status) {
-			if(result.hasErrors()) {
-				model.addAttribute("titulo", "Formulario de Cliente");
-				model.addAttribute("accion", "Intentelo de nuevo");
-				model.addAttribute("whatis","true");
-			
+	/**
+	 * Lista todos los usuarios (por GET)
+	 * 
+	 * @param model
+	 * @return Lista de clientes
+	 */
+	@RequestMapping(value = { "listar", "", "/" }, method = RequestMethod.GET)
+	public String listar(Model model) {
+		model.addAttribute("titulo", "Listado de clientes");
+		model.addAttribute("clientes", clienteDAO.findAll());
+		return "listar";
+	}
 
+	/**
+	 * Crea formulario de registro
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/form", method = RequestMethod.GET)
+	public String crear(Map<String, Object> model) {
+		Cliente cliente = new Cliente();
+		model.put("cliente", cliente);
+		model.put("titulo", "Formulario de Cliente");
+		model.put("accion", "crear cliente");
+		model.put("whatis", "false");
 
-				return  "form";
-			}
-			else {
-				clienteDAO.save(cliente);
-				status.setComplete();
-				return "redirect:listar";	
-			}
-			
-		}
-		
-		@RequestMapping(value="/form/{id}")
-		public String editar(@PathVariable(value = "id") Long id, Map<String ,Object> model) {
-			Cliente cliente = null;
-			if(id>0) {
-				cliente = clienteDAO.findOne(id);
-			}
-			else {
-				return "redirect:/listar";
-			}
-			model.put("cliente", cliente);
-			model.put("titulo", "Editar ".concat(cliente.getNombre().concat(" ").concat(cliente.getApellido())));
-			model.put("accion", "Editar cliente");
-			model.put("whatis","true");
+		return "form";
+	}
 
+	/**
+	 * Guada un usuario
+	 * 
+	 * @param cliente
+	 * @return
+	 */
+	@RequestMapping(value = "/form", method = RequestMethod.POST)
+	public String guardar(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model,
+			SessionStatus status) {
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario de Cliente");
+			model.addAttribute("accion", "Intentelo de nuevo");
+			model.addAttribute("whatis", "true");
 
 			return "form";
-			
+		} else {
+			clienteDAO.save(cliente);
+			status.setComplete();
+			return "redirect:listar";
 		}
-		
-		
+
+	}
+	/**
+	 * Edita una entrada del listado
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/form/{id}")
+	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
+		Cliente cliente = null;
+		if (id > 0) {
+			cliente = clienteDAO.findOne(id);
+		} else {
+			return "redirect:/listar";
+		}
+		model.put("cliente", cliente);
+		model.put("titulo", "Editar ".concat(cliente.getNombre().concat(" ").concat(cliente.getApellido())));
+		model.put("accion", "Editar cliente");
+		model.put("whatis", "true");
+
+		return "form";
+
+	}
+	@RequestMapping(value="/eliminar/{id}")
+	public String eliminar(@PathVariable(value = "id") Long id) {
+		if(id>0) {
+			clienteDAO.delete(id);
+		}
+		return "redirect:/listar";
+	}
+
 }
