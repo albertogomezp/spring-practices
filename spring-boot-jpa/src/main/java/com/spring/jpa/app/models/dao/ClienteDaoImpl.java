@@ -29,6 +29,7 @@ public class ClienteDaoImpl implements IClienteDao {
 	 * @param cliente
 	 */
 	@Override
+	@Transactional
 	public void save(Cliente cliente) {
 		if (cliente.getId() != null && cliente.getId() > 0) {
 			em.merge(cliente);
