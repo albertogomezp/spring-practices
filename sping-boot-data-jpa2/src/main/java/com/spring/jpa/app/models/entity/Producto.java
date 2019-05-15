@@ -1,9 +1,8 @@
 package com.spring.jpa.app.models.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +10,6 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -21,16 +19,20 @@ public class Producto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "COD_PRO")
 	private Integer CodPro;
 	@NotEmpty
-	@Size(min = 3, max = 20)
+	@Size(min = 3, max = 300)
+	@Column(name = "NOM_PRO")
 	private String NomPro;
 	@NotEmpty
 	@Size(min = 3)
+	@Column(name = "DESC_PRO")
 	private String DescPro;
 	@NotEmpty
+	@Column(name = "PRE_PRO")
 	private float PrePro;
-	@NotNull
+	@Column(name = "STOCK_PRO")
 	private Integer StockPro;
 
 	private static final long serialVersionUID = 1L;

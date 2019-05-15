@@ -14,27 +14,27 @@ import com.spring.jpa.app.models.entity.Producto;
 public class ProductoServiceImpl implements IProductoService{
 	
 	@Autowired
-	private IProductosDAO clienteDAO;
+	private IProductosDAO productosDAO;
 	
 	@Transactional(readOnly = true)
 	public List<Producto> findAll(){
-		return clienteDAO.findAll();
+		return productosDAO.findAll();
 	}
 	
 	@Override
 	@Transactional
-	public void save(Producto cliente) {
-		clienteDAO.save(cliente);
+	public void save(Producto producto) {
+		productosDAO.save(producto);
 	}
 	@Override
 	@Transactional(readOnly = true)
-	public Producto findOne(Long id) {
-		return clienteDAO.findOne(id);
+	public Producto findOne(Integer codpro) {
+		return productosDAO.findOne(codpro);
 	}
 	@Override
 	@Transactional
-	public void delete(Long id) {
-		clienteDAO.delete(id);
+	public void delete(Integer codpro) {
+		productosDAO.delete(codpro);
 	}
 	
 }

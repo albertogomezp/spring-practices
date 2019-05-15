@@ -10,8 +10,8 @@ public interface IProductosDAO {
 	
 	public void save(Producto producto);
 	
-	public Producto findOne(Integer id);
+	public Producto findOne(Integer codpro);
 	
-	public void delete(Integer id);
+	public void delete(Integer codpro);
 	
 }

@@ -25,7 +25,7 @@ public class ClienteController {
 
 	@Autowired // esto encontrará el repo
 //	@Qualifier("IClienteDaoJPA") // Para mapear en caso de ambiguedad
-	private IProductoService clienteService;
+	private IProductoService productoService;
 
 	/**
 	 * Lista todos los usuarios (por GET)
@@ -36,7 +36,7 @@ public class ClienteController {
 	@RequestMapping(value = { "listar", "", "/" }, method = RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de productos");
-		model.addAttribute("productos", clienteService.findAll());
+		model.addAttribute("productos", productoService.findAll());
 		return "listar";
 	}
 
@@ -58,22 +58,22 @@ public class ClienteController {
 	}
 
 	/**
-	 * Guada un usuario
+	 * Guada un producto
 	 * 
-	 * @param cliente
+	 * @param producto
 	 * @return
 	 */
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String guardar(@Valid @ModelAttribute("cliente") Producto cliente, BindingResult result, Model model,
+	public String guardar(@Valid @ModelAttribute("cliente") Producto producto, BindingResult result, Model model,
 			SessionStatus status) {
 		if (result.hasErrors()) {
-			model.addAttribute("titulo", "Formulario de Cliente");
+			model.addAttribute("titulo", "Formulario de producto");
 			model.addAttribute("accion", "Intentelo de nuevo");
 			model.addAttribute("whatis", "true");
 
 			return "form";
 		} else {
-			clienteService.save(cliente);
+			productoService.save(producto);
 			status.setComplete();
 			return "redirect:listar";
 		}
@@ -85,26 +85,26 @@ public class ClienteController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/form/{id}")
-	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
-		Producto cliente = null;
-		if (id > 0) {
-			cliente = clienteService.findOne(id);
+	@RequestMapping(value = "/form/{codpro}")
+	public String editar(@PathVariable(value = "codpro") Integer codpro, Map<String, Object> model) {
+		Producto producto = null;
+		if (codpro > 0) {
+			producto = productoService.findOne(codpro);
 		} else {
 			return "redirect:/listar";
 		}
-		model.put("cliente", cliente);
-		model.put("titulo", "Editar ".concat(cliente.getNombre().concat(" ").concat(cliente.getApellido())));
-		model.put("accion", "Editar cliente");
+		model.put("producto", producto);
+		model.put("titulo", "Editar ".concat(producto.getNomPro()));
+		model.put("accion", "Editar producto");
 		model.put("whatis", "true");
 
 		return "form";
 
 	}
-	@RequestMapping(value="/eliminar/{id}")
-	public String eliminar(@PathVariable(value = "id") Long id) {
-		if(id>0) {
-			clienteService.delete(id);
+	@RequestMapping(value="/eliminar/{codpro}")
+	public String eliminar(@PathVariable(value = "codpro") Integer codpro) {
+		if(codpro>0) {
+			productoService.delete(codpro);
 		}
 		return "redirect:/listar";
 	}
