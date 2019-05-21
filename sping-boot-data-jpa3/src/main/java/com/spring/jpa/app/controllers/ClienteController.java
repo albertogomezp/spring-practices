@@ -3,6 +3,7 @@ package com.spring.jpa.app.controllers;
 import java.util.Map;
 
 import javax.validation.Valid;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,11 +28,11 @@ import com.spring.jpa.app.util.paginator.PageRender;
 @Controller
 @SessionAttributes("cliente")
 public class ClienteController {
-
+	
 	@Autowired // esto encontrará el repo
 //	@Qualifier("IClienteDaoJPA") // Para mapear en caso de ambiguedad
 	private IClienteService clienteService;
-
+	
 	/**
 	 * Lista todos los usuarios (por GET)
 	 * 
@@ -39,15 +40,26 @@ public class ClienteController {
 	 * @return Lista de clientes
 	 */
 	@RequestMapping(value = { "listar", "", "/" }, method = RequestMethod.GET)
-	public String listar(@RequestParam(name="page",defaultValue="0") int page, Model model) {
+	public String listar(@RequestParam(name="page",defaultValue="0") int page,@RequestParam(name="resultados", defaultValue="10") int resultados, RedirectAttributes flash, Model model,SessionStatus status) {
+		if(resultados > 0 ) {
+			model.addAttribute("resultados",resultados);
+		} else {
+			status.setComplete();
+			model.addAttribute("resultados","10");
+			resultados = 10;
+			flash.addFlashAttribute("msg","true");
+			flash.addFlashAttribute("warning", "por favor, no juegues con los parametros de la página, te he pillado...");
+			return "redirect:listar";
+		}
 		
-		Pageable pageRequest = PageRequest.of(page, 10);
+		Pageable pageRequest = PageRequest.of(page, resultados);
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
 		PageRender<Cliente> pageRender = new PageRender<>("/listar", clientes);
 		model.addAttribute("titulo", "Listado de clientes");
 		model.addAttribute("clientes", clientes);
 		model.addAttribute("page", pageRender);
-		return "listar";
+		model.addAttribute("resultados", resultados);
+		return "/listar";
 	}
 	
 	/**
