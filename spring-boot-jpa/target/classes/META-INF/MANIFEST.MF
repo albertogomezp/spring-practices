@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: sping-boot-data-jpa
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: alber
+Implementation-Vendor-Id: com.spring.jpa.app
+Build-Jdk: 1.8.0_202
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/sping-boot-data-jpa
+Created-By: Maven Integration for Eclipse
+

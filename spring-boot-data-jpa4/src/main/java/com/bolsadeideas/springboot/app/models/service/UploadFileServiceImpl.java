@@ -64,4 +64,16 @@ public class UploadFileServiceImpl implements IUploadFileService {
 	public Path getPath(String filename) {
 		return Paths.get(UPLOADS_FOLDER).resolve(filename).toAbsolutePath();
 	}
+
+	@Override
+	public void deleteAll() {
+		FileSystemUtils.deleteRecursively(Paths.get(UPLOADS_FOLDER).toFile());
+		
+	}
+
+	@Override
+	public void init() throws IOException {
+		Files.createDirectory(Paths.get(UPLOADS_FOLDER));
+		
+	}
 }
