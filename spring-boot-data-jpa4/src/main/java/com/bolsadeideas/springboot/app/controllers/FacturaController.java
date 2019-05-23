@@ -34,7 +34,7 @@ public class FacturaController {
 		factura.setCliente(cliente);
 		model.put("factura", factura);
 		model.put("titulo", "Crear factura");
-		return "factura/form";
+		return "/factura/form";
 	}
 	
 }
