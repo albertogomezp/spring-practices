@@ -11,6 +11,7 @@ public class MvcConfig implements WebMvcConfigurer{
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		@SuppressWarnings("unused")
 		String resourcePath = Paths.get("uploads").toAbsolutePath().toUri().toString();
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		registry.addResourceHandler("/uploads/**")

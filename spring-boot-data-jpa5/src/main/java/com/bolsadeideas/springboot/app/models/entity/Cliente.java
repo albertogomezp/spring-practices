@@ -46,7 +46,7 @@ public class Cliente implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
 
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Factura> facturas;
 
 	private String foto;
@@ -118,11 +118,7 @@ public class Cliente implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	@Override
-	public String toString() {
-		return nombre + " " + apellido;
-	}
-	
+
 	private static final long serialVersionUID = 1L;
+
 }
