@@ -167,6 +167,6 @@ public class ClienteController {
 			}
 
 		}
-		return "redirect:/listar";
+		return "redirect:/";
 	}
 }

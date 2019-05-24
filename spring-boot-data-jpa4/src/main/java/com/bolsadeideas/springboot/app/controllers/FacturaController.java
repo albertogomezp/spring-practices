@@ -40,7 +40,7 @@ public class FacturaController {
 		return "/factura/form";
 	}
 	/**
-	 * Conversor a JSON
+	 * Envia la respuesta + Conversor a JSON
 	 * @param term
 	 * @return
 	 */
