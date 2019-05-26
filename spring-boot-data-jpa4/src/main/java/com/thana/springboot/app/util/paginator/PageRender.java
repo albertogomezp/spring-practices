@@ -1,4 +1,4 @@
-package com.bolsadeideas.springboot.app.util.paginator;
+package com.thana.springboot.app.util.paginator;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.bolsadeideas.springboot.app;
+package com.thana.springboot.app;
 
 // import java.nio.file.Paths;
 

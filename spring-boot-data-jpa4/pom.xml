@@ -8,15 +8,15 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bolsadeideas.springboot.datajpa.app</groupId>
+	<groupId>com.thana.springboot.datajpa.app</groupId>
 	<artifactId>spring-boot-data-jpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-data-jpa</name>
-	<description>Demo project for Spring Boot</description>
+	<description>CRUD de clientes - productos</description>
 	
 	<properties>
 		<java.version>11</java.version>
-		 <start-class>com.bolsadeideas.springboot.app.SpringBootDataJpaApplication</start-class>
+		 <start-class>com.thana.springboot.app.SpringBootDataJpaApplication</start-class>
 	</properties>
 
 	<dependencies>
