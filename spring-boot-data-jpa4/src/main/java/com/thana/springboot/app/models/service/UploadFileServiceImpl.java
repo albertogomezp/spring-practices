@@ -1,4 +1,4 @@
-package com.bolsadeideas.springboot.app.models.service;
+package com.thana.springboot.app.models.service;
 
 import java.io.File;
 import java.io.IOException;

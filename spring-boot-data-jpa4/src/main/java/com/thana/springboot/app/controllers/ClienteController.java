@@ -1,4 +1,4 @@
-package com.bolsadeideas.springboot.app.controllers;
+package com.thana.springboot.app.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,10 +26,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bolsadeideas.springboot.app.models.entity.Cliente;
-import com.bolsadeideas.springboot.app.models.service.IClienteService;
-import com.bolsadeideas.springboot.app.models.service.IUploadFileService;
-import com.bolsadeideas.springboot.app.util.paginator.PageRender;
+import com.thana.springboot.app.models.entity.Cliente;
+import com.thana.springboot.app.models.service.IClienteService;
+import com.thana.springboot.app.models.service.IUploadFileService;
+import com.thana.springboot.app.util.paginator.PageRender;
 
 @Controller
 @SessionAttributes("cliente")
@@ -71,8 +71,12 @@ public class ClienteController {
 		model.put("titulo", "Detalle cliente: " + cliente.getNombre());
 		return "ver";
 	}
-
-	@RequestMapping(value = {"/listar","","/"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/index","","/"}, method = RequestMethod.GET)
+	public String index(Map<String, Object> model) {
+		model.put("titulo", "Index");
+		return "index";
+	}
+	@RequestMapping(value = {"/listar"}, method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
 		Pageable pageRequest = PageRequest.of(page, 4);

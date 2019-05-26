@@ -1,4 +1,4 @@
-package com.bolsadeideas.springboot.app.models.service;
+package com.thana.springboot.app.models.service;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bolsadeideas.springboot.app.models.dao.IClienteDao;
-import com.bolsadeideas.springboot.app.models.dao.IFacturaDao;
-import com.bolsadeideas.springboot.app.models.dao.IProductoDao;
-import com.bolsadeideas.springboot.app.models.entity.Cliente;
-import com.bolsadeideas.springboot.app.models.entity.Factura;
-import com.bolsadeideas.springboot.app.models.entity.Producto;
+import com.thana.springboot.app.models.dao.IClienteDao;
+import com.thana.springboot.app.models.dao.IFacturaDao;
+import com.thana.springboot.app.models.dao.IProductoDao;
+import com.thana.springboot.app.models.entity.Cliente;
+import com.thana.springboot.app.models.entity.Factura;
+import com.thana.springboot.app.models.entity.Producto;
 
 @Service
 public class ClienteServiceImpl implements IClienteService {
@@ -73,6 +73,19 @@ public class ClienteServiceImpl implements IClienteService {
 	@Transactional(readOnly = true)
 	public Producto findProductoById(Long id) {
 		return productoDao.findById(id).orElse(null);
+		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Factura findfacturaById(Long id) {
+		return facturaDao.findById(id).orElse(null);
+		
+	}
+
+	@Override
+	public void deleteFactura(Long id) {
+		// TODO Auto-generated method stub
 		
 	}
 }
