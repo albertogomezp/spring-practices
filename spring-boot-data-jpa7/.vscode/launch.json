@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SpringBootDataJpaApplication",
+            "request": "launch",
+            "mainClass": "com.bolsadeideas.springboot.app.SpringBootDataJpaApplication",
+            "projectName": "spring-boot-data-jpa"
+        }
+    ]
+}
